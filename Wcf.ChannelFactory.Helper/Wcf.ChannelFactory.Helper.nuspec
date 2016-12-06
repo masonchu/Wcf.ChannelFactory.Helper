@@ -11,7 +11,7 @@
     <copyright>Copyright 2016</copyright>
   </metadata>
       <files>
-        <file src="Wcf.ChannelFactory.Helper.dll" target="lib\net40\Wcf.ChannelFactory.Helper.dll" />
-        <file src="Wcf.ChannelFactory.Helper.dll" target="lib\net45\Wcf.ChannelFactory.Helper.dll" />
+        <file src="bin\Release\Wcf.ChannelFactory.Helper.dll" target="lib\net40\Wcf.ChannelFactory.Helper.dll"/>
+        <file src="bin\Release\Wcf.ChannelFactory.Helper.dll" target="lib\net45\Wcf.ChannelFactory.Helper.dll"/>
     </files>
 </package>
