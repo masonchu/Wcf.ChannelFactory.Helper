@@ -10,24 +10,24 @@ namespace Wcf.ChannelFactory.Helper
         /// get channnel factory instance by connect mode , http , nettcp
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="bindingName"></param>
+        /// <param name="endpointName"></param>
         /// <param name="mode"></param>
         /// <returns></returns>
-        public ChannelFactory<T> GetChannelFactory<T>(string bindingName, ConnectMode mode = ConnectMode.Http)
+        public ChannelFactory<T> GetChannelFactory<T>(string endpointName, ConnectMode mode = ConnectMode.Http)
         {
             ChannelFactory<T> factory = null;
             switch (mode)
             {
                 case ConnectMode.Http:
-                    factory = GetHttpBindingFactory<T>(bindingName);
+                    factory = GetHttpBindingFactory<T>(endpointName);
                     break;
                 case ConnectMode.NetTcp:
-                    factory = GetTcpBindingFactory<T>(bindingName);
+                    factory = GetTcpBindingFactory<T>(endpointName);
                     break;
                 default:
                     break;
             }
-            return GetHttpBindingFactory<T>(bindingName);
+            return GetHttpBindingFactory<T>(endpointName);
         }
 
         private ChannelFactory<T> GetHttpBindingFactory<T>(string endpointName)
@@ -63,7 +63,10 @@ namespace Wcf.ChannelFactory.Helper
             for (int i = 0; i < clientSection.Endpoints.Count; i++)
             {
                 if (clientSection.Endpoints[i].Name == name)
+                {
+                    bindingName = clientSection.Endpoints[i].Binding.ToString();
                     address = clientSection.Endpoints[i].Address.ToString();
+                }
             }
             return new EndPointInfo
             {
