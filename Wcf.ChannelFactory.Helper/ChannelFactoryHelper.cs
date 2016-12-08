@@ -64,7 +64,7 @@ namespace Wcf.ChannelFactory.Helper
             {
                 if (clientSection.Endpoints[i].Name == name)
                 {
-                    bindingName = clientSection.Endpoints[i].Binding.ToString();
+                    bindingName = clientSection.Endpoints[i].BindingConfiguration.ToString();
                     address = clientSection.Endpoints[i].Address.ToString();
                 }
             }
