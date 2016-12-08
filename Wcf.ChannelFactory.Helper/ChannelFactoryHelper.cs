@@ -1,23 +1,36 @@
 ﻿using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
-using System.ServiceModel.Dispatcher;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Description;
-using System.Xml;
-using System;
 
 namespace Wcf.ChannelFactory.Helper
 {
     public class ChannelFactoryHelper
     {
-        public ChannelFactory<T> GetOverSeaFactory<T>(string bindingName)
+        /// <summary>
+        /// get channnel factory instance by connect mode , http , nettcp
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="bindingName"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public ChannelFactory<T> GetChannelFactory<T>(string bindingName, ConnectMode mode = ConnectMode.Http)
         {
-            return GetTcpBindingFactory<T>(bindingName);
-            //return GetHttpBindingFactory<IOverSeaService>("BasicHttpBinding_Sinopac", "BasicHttpBinding_OverSeaService");
+            ChannelFactory<T> factory = null;
+            switch (mode)
+            {
+                case ConnectMode.Http:
+                    factory = GetHttpBindingFactory<T>(bindingName);
+                    break;
+                case ConnectMode.NetTcp:
+                    factory = GetTcpBindingFactory<T>(bindingName);
+                    break;
+                default:
+                    break;
+            }
+            return GetHttpBindingFactory<T>(bindingName);
         }
 
-        public ChannelFactory<T> GetHttpBindingFactory<T>(string endpointName)
+        private ChannelFactory<T> GetHttpBindingFactory<T>(string endpointName)
         {
             var endpoint = ReadEndPoint(endpointName);
             BasicHttpBinding binding = new BasicHttpBinding(endpoint.BindingName);
@@ -29,7 +42,7 @@ namespace Wcf.ChannelFactory.Helper
             return factory;
         }
 
-        public ChannelFactory<T> GetTcpBindingFactory<T>(string endpointName)
+        private ChannelFactory<T> GetTcpBindingFactory<T>(string endpointName)
         {
             var endpoint = ReadEndPoint(endpointName);
             NetTcpBinding binding = new NetTcpBinding(endpoint.BindingName);
@@ -65,5 +78,5 @@ namespace Wcf.ChannelFactory.Helper
             public string AddressName { get; set; }
         }
     }
-  
+
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChannelFactoryHelper.cs" />
+    <Compile Include="ConnectMode.cs" />
     <Compile Include="OperatorEndpointBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHeaderMessageHeader.cs" />
